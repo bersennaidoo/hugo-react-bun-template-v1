@@ -1,0 +1,19 @@
+[build]
+publish = "public"
+command = "bun install && node ./esmscript.prod.mjs && hugo --gc --minify"
+
+[functions]
+external_node_modules = ["express"]
+node_bundler = "esbuild"
+included_files = ["./db.json", "./villains.json", "/tmp/db.json"]
+
+[[redirects]]
+force = true
+from = "/api/*"
+status = 200
+to = "/.netlify/functions/api/:splat"
+
+[context.production.environment]
+HUGO_VERSION = "0.124.1"
+HUGO_ENV = "production"
+HUGO_ENABLEGITINFO = "true"
